@@ -15,10 +15,10 @@ spec:
       values: |-
         resources:
           limits:
-            cpu: 20m
+            cpu: 100m
             memory: 128Mi
           requests:
-            cpu: 20m
+            cpu: 100m
             memory: 128Mi
   destination:
     server: https://kubernetes.default.svc
