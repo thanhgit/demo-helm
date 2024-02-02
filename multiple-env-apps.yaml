@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nginx-set
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+          - env: prod
+  template:
+    metadata:
+      name: nginx-{{ env }}
+    spec:
+      project: default
+      source:
+        path: nginx/
+        repoURL: https://github.com/thanhgit/demo-helm.git
+        targetRevision: HEAD
+        helm:
+          releaseName: nginx
+          valueFiles:
+            - values/common-values.yaml
+            - values/{{ env }}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: demo-{{ env }}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+  syncPolicy:
+    preserveResourcesOnDeletion: false
