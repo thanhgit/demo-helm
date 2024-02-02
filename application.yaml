@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: nginx
-  namespace: argo
+  namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -15,10 +15,10 @@ spec:
       values: |-
         resources:
           limits:
-            cpu: 50m
+            cpu: 20m
             memory: 128Mi
           requests:
-            cpu: 50m
+            cpu: 20m
             memory: 128Mi
   destination:
     server: https://kubernetes.default.svc
